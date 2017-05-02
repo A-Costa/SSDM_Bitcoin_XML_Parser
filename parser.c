@@ -1,4 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "xml_functions.h"
+#include "structs.h"
+#include "functions.h"
 
 int main(){
     FILE *fp;
@@ -17,27 +22,28 @@ int main(){
 
     fp = fopen("file.xml", "r");
 
+    //inizialization of a new xml root node (this is needed because the file is not well formed)
     xml = mxmlNewXML("1.0");
     root = mxmlNewElement(xml, "blocks");
     tree = mxmlLoadFile(root, fp, MXML_TEXT_CALLBACK);
 
     bl_node = mxmlFindPath(xml, "blocks/block");
-    bl_node = mxmlWalkPrev(bl_node, tree, MXML_DESCEND);
+    bl_node = mxmlWalkPrev(bl_node, root, MXML_DESCEND);
     tx_node = mxmlFindPath(bl_node, "tx");
-    tx_node = mxmlWalkPrev(tx_node, tree, MXML_DESCEND);
+    tx_node = mxmlWalkPrev(tx_node, root, MXML_DESCEND);
 
     for(i=0; i<1750; i++){
-        text = mxmlGetText(tx_node, NULL);
+        //text = mxmlGetText(tx_node, NULL);
         elem = mxmlGetElement(tx_node);
         attr = mxmlElementGetAttr(tx_node, "hash");
-        printf("   text:%s\n", text);
+        //printf("   text:%s\n", text);
         printf("   elem:%s\n", elem);
         printf("   attr:%s\n", attr);
 
-        printf("tx numer: %llu\n", i);
-        outputs = CountOuts(tx_node, tree);
+        printf("tx number: %llu\n", i);
+        outputs = CountOuts(tx_node, root);
         printf("outputs: %llu\n", outputs);
-        NextTx(&tx_node, &bl_node, tree);
+        NextTx(&tx_node, &bl_node, root);
         getchar();
     }
 }

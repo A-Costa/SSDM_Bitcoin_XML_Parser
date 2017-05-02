@@ -1,2 +1,2 @@
-parser: parser.c xml_functions.c
-	gcc -o parser parser.c xml_functions.c -lmxml
+parser: parser.c xml_functions.c functions.c
+	gcc -o parser parser.c xml_functions.c functions.c -lmxml
