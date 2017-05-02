@@ -1,10 +1,10 @@
 typedef struct output_s{
     char address[64];
-    unsigned long address_length;
+    //size_t address_length;
 }output;
 
 typedef struct tx_outputs_s{
     char hash[64];
-    output *outs;
     unsigned long long outs_length;
+    output *outs;
 }tx_outputs;
