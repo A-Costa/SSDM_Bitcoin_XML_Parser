@@ -4,7 +4,7 @@ typedef struct output_s{
 }output;
 
 typedef struct tx_outputs_s{
-    char hash[64];
+    char hash[65];
     unsigned long long outs_length;
     output *outs;
     struct tx_outputs_s *next;

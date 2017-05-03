@@ -2,7 +2,8 @@
 
 unsigned long HashToIndex(const char *hash){
     char string[5];
-    for(int i=0; i<4; i++){
+    int i;
+    for(i=0; i<4; i++){
         string[i] = hash[i];
     }
     string[4] = '\0';
@@ -76,6 +77,7 @@ void LoadXMLToTable(FILE* fp, tx_outputs **table){
         number_of_outputs = CountOuts(tx_node, root);
         txo = malloc(sizeof(tx_outputs));
         strncpy(txo->hash, tx_hash, 64);
+        txo->hash[64] = '\0';
         txo->outs_length = number_of_outputs;
         txo->outs = ArrayOfTxOuts(tx_node, root, number_of_outputs);
         txo->next = NULL;

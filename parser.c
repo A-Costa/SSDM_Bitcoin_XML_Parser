@@ -5,6 +5,7 @@
 
 int main(){
     FILE *fp;
+    unsigned long long i;
 
     fp = fopen("file.xml", "r");
 
