@@ -4,22 +4,24 @@
 #include "functions.h"
 
 int main(){
-    FILE *fp;
     unsigned long long i;
+    FILE *fp, *result_file;
+    tx_outputs *cursor;
 
-    fp = fopen("file.xml", "r");
-
-    tx_outputs **table = malloc(0xffff * sizeof(tx_outputs*));
+    tx_outputs **table;
+    table = malloc(0xffff * sizeof(tx_outputs*));
     for(i=0;i<0xffff;i++){
         table[i] = NULL;
     }
 
-    tx_outputs *cursor;
 
+    fp = fopen("file.xml", "r");
+    result_file = fopen("fileresult_", "a");
     LoadXMLToTable(fp, table);
+    fp = fopen("file.xml", "r");
+    ParseXML(fp, table, result_file);
 
-    getchar();
-
+    /*
     cursor = table[19338];
 
     do{
@@ -28,5 +30,8 @@ int main(){
         cursor = cursor->next;
     }while(cursor != NULL);
     getchar();
+    */
+
+
 
 }

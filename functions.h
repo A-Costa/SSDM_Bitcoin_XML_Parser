@@ -8,3 +8,4 @@
 unsigned long HashToIndex(const char *hash);
 output *ArrayOfTxOuts(mxml_node_t *current_tx, mxml_node_t *tree, unsigned long long number);
 void LoadXMLToTable(FILE* fp, tx_outputs **table);
+void ParseXML(FILE *fp, tx_outputs **table, FILE *result_file);
