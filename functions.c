@@ -181,4 +181,8 @@ void ParseXML(FILE *fp, tx_outputs **table, FILE *result_file){
         fprintf(result_file, "\n");
         NextTx(&tx_node, &bl_node, root);
     }
+
+    printf("ParseXML: Scrittura su file completata. Libero la memoria...\n");
+    mxmlDelete(xml);
+    printf("ParseXML: Memoria Liberata.\n");
 }
