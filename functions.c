@@ -1,12 +1,12 @@
 #include "functions.h"
 
 unsigned long HashToIndex(const char *hash){
-    char string[5];
+    char string[9];
     int i;
-    for(i=0; i<4; i++){
+    for(i=0; i<8; i++){
         string[i] = hash[i];
     }
-    string[4] = '\0';
+    string[8] = '\0';
     char *end;
     return strtoul(string, &end, 16);
 }
@@ -29,8 +29,6 @@ output *ArrayOfTxOuts(mxml_node_t *current_tx, mxml_node_t *tree, unsigned long 
         text_length = strlen(text);
         strncpy(array[i].address, text, text_length);
         array[i].address[text_length] = '\0';
-        //printf("%s\n", array[i].address);
-        //printf("%i\n",array[i].address[text_length]);
         outputs = mxmlGetNextSibling(outputs);
         outputs = mxmlGetNextSibling(outputs);
         if(outputs == NULL){
@@ -147,7 +145,6 @@ void ParseXML(FILE *fp, tx_outputs **table, FILE *result_file){
         inputs = mxmlWalkPrev(inputs, tree, MXML_DESCEND);
         while(inputs != NULL){
             in_tx_hash_node = mxmlFindPath(inputs, "in_tx_hash");
-            //in_tx_hash_node = mxmlWalkPrev(in_tx_hash_node, tree, MXML_DESCEND);
             in_tx_hash = mxmlGetText(in_tx_hash_node, NULL);
             index_from_hash = HashToIndex(in_tx_hash);
 
@@ -167,10 +164,6 @@ void ParseXML(FILE *fp, tx_outputs **table, FILE *result_file){
                 fprintf(result_file, "NotFound");
             }
 
-            //printf("in_tx_hash: %s\n", in_tx_hash);
-            //printf("index_from_hash: %lu\n", index_from_hash);
-
-            //printf("%llu -> %s\n",index, in_tx_hash);
             inputs = mxmlGetNextSibling(inputs);
             inputs = mxmlGetNextSibling(inputs);
 

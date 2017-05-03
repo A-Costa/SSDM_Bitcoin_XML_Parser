@@ -9,29 +9,35 @@ int main(){
     tx_outputs *cursor;
 
     tx_outputs **table;
-    table = malloc(0xffff * sizeof(tx_outputs*));
-    for(i=0;i<0xffff;i++){
+    printf("Alloco memoria per table...\n");
+    table = malloc(0xffffffff * sizeof(tx_outputs*));
+    printf("Inizializzo...\n");
+    for(i=0;i<0xffffffff;i++){
         table[i] = NULL;
     }
+    printf("Inizializzazione completata!\n");
 
-
-    fp = fopen("file.xml", "r");
     result_file = fopen("fileresult_", "a");
+
+    fp = fopen("/local/s1953583/result_1", "r");
     LoadXMLToTable(fp, table);
-    fp = fopen("file.xml", "r");
+    fp = fopen("/local/s1953583/result_2", "r");
+    LoadXMLToTable(fp, table);
+    fp = fopen("/local/s1953583/result_3", "r");
+    LoadXMLToTable(fp, table);
+    fp = fopen("/local/s1953583/result_4", "r");
+    LoadXMLToTable(fp, table);
+
+    //FINE CARICAMENTO IN TABELLA
+
+    fp = fopen("/local/s1953583/result_1", "r");
+    ParseXML(fp, table, result_file);
+    fp = fopen("/local/s1953583/result_2", "r");
+    ParseXML(fp, table, result_file);
+    fp = fopen("/local/s1953583/result_3", "r");
+    ParseXML(fp, table, result_file);
+    fp = fopen("/local/s1953583/result_4", "r");
     ParseXML(fp, table, result_file);
 
-    /*
-    cursor = table[19338];
-
-    do{
-        printf("%llu: %s\n", i, cursor->hash);
-        i++;
-        cursor = cursor->next;
-    }while(cursor != NULL);
-    getchar();
-    */
-
-
-
+    free(table);
 }
